@@ -102,7 +102,7 @@ const About = () => {
                 rotate: [0, 360],
               }}
               transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-[radial-gradient(circle,rgba(249,115,22,0.15)_0%,transparent_70%)] opacity-50"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-[radial-gradient(circle,rgba(249,115,22,0.15)_0%,transparent_70%)] opacity-50 hidden md:block"
             />
           </div>
 
@@ -137,8 +137,8 @@ const About = () => {
             ))}
           </div>
 
-          {/* Layer 3: Dynamic Liquid Orbs (High Depth) */}
-          <div className="absolute inset-0 overflow-hidden">
+          {/* Layer 3: Dynamic Liquid Orbs (High Depth) - hidden on mobile for performance */}
+          <div className="absolute inset-0 overflow-hidden hidden md:block">
             <motion.div
               animate={{
                 scale: [1, 1.4, 1],
@@ -225,8 +225,8 @@ const About = () => {
         {/* CEO Message Section - Enhanced with Warm Orange Shade & Floating Elements */}
         <section className="py-20 md:py-28 bg-[#1a0f04] relative overflow-hidden">
           {/* Intense Orange Glows for the "Orange Shade" request */}
-          <div className="absolute top-0 right-0 w-[900px] h-[900px] bg-primary/25 rounded-full blur-[180px] -z-0" />
-          <div className="absolute bottom-0 left-0 w-[700px] h-[700px] bg-amber-600/20 rounded-full blur-[150px] -z-0" />
+          <div className="absolute top-0 right-0 w-[900px] h-[900px] bg-primary/25 rounded-full blur-[180px] -z-0 hidden md:block" />
+          <div className="absolute bottom-0 left-0 w-[700px] h-[700px] bg-amber-600/20 rounded-full blur-[150px] -z-0 hidden md:block" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(251,146,60,0.08),transparent_70%)]" />
 
           {/* Floating Decorative Elements */}
@@ -344,8 +344,8 @@ const About = () => {
           <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white to-transparent opacity-60 z-10" />
           <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent opacity-60 z-10" />
 
-          {/* Premium Multi-color Snow Layer */}
-          <div className="absolute inset-0 pointer-events-none z-0">
+          {/* Premium Multi-color Snow Layer - hidden on mobile for performance */}
+          <div className="absolute inset-0 pointer-events-none z-0 hidden md:block">
             {[...Array(30)].map((_, i) => (
               <motion.div
                 key={i}
@@ -375,115 +375,42 @@ const About = () => {
             ))}
           </div>
 
-          {/* Floating Decorative Travel Elements (Floating Car & Plane) - Enhanced Visibility */}
-          <motion.div
-            animate={{
-              y: [0, -40, 0],
-              x: [0, 20, 0],
-              rotate: [0, 5, 0],
-            }}
-            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-1/4 -left-10 opacity-[0.2] text-orange-950"
-          >
-            <Plane className="w-64 h-64" strokeWidth={0.5} />
-          </motion.div>
-
-          <motion.div
-            animate={{
-              y: [0, 50, 0],
-              x: [0, -30, 0],
-              rotate: [0, -8, 0],
-            }}
-            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-1/4 -right-16 opacity-[0.15] text-slate-950"
-          >
-            <Briefcase className="w-80 h-80" strokeWidth={0.3} />
-          </motion.div>
-
-          {/* Academic Achievement Decoration - Graduation Cap ('Degree Hat') */}
-          <motion.div
-            animate={{
-              y: [0, -60, 0],
-              rotate: [0, 15, -15, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-            className="absolute top-1/3 left-1/4 opacity-[0.12] text-slate-950 pointer-events-none"
-          >
-            <GraduationCap className="w-72 h-72" strokeWidth={0.3} />
-          </motion.div>
-
-          <motion.div
-            animate={{
-              y: [0, 40, 0],
-              rotate: [-10, 10, -10],
-            }}
-            transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 5 }}
-            className="absolute bottom-10 left-1/3 opacity-[0.1] text-orange-950 pointer-events-none"
-          >
-            <GraduationCap className="w-56 h-56" strokeWidth={0.4} />
-          </motion.div>
-
-          {/* New Additions: Filling the "Empty" space with high-fidelity icons */}
-          <motion.div
-            animate={{
-              rotate: 360,
-              y: [0, 30, 0],
-            }}
-            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-            className="absolute top-1/2 right-[15%] opacity-[0.08] text-primary pointer-events-none"
-          >
-            <BookOpen className="w-64 h-64" strokeWidth={0.3} />
-          </motion.div>
-
-          <motion.div
-            animate={{
-              scale: [0.9, 1.1, 0.9],
-              rotate: [10, -10, 10],
-            }}
-            transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-[65%] left-[5%] opacity-[0.05] text-slate-900 pointer-events-none"
-          >
-            <Users className="w-80 h-80" strokeWidth={0.2} />
-          </motion.div>
-
-          {/* Specifically Requested: "Floating Car" Illustration representing the Journey */}
-          <motion.div
-            animate={{
-              x: [-100, 100],
-              y: [-10, 10, -10],
-            }}
-            transition={{
-              x: { duration: 25, repeat: Infinity, ease: "linear" },
-              y: { duration: 5, repeat: Infinity, ease: "easeInOut" }
-            }}
-            className="absolute top-1/2 left-0 w-full opacity-[0.12] pointer-events-none"
-          >
-            <Plane className="w-96 h-96 mx-auto -translate-y-1/2 text-orange-950" strokeWidth={0.2} />
-          </motion.div>
-
-          {/* Floating 'Success Keywords' to fill vertical gaps with parallax */}
-          <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+          {/* Floating Decorative Elements - hidden on mobile for performance */}
+          <div className="hidden md:block">
             <motion.div
-              animate={{ y: [0, 50, 0] }}
-              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-[25%] right-[10%] text-[8vw] font-black text-slate-950/5 italic leading-none"
-            >
-              SUCCESS
-            </motion.div>
-            <motion.div
-              animate={{ y: [0, -40, 0] }}
+              animate={{ y: [0, -40, 0], x: [0, 20, 0], rotate: [0, 5, 0] }}
               transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-[45%] left-[2%] text-[10vw] font-black text-primary/5 leading-none"
+              className="absolute top-1/4 -left-10 opacity-[0.2] text-orange-950"
             >
-              GLOBAL
+              <Plane className="w-64 h-64" strokeWidth={0.5} />
             </motion.div>
             <motion.div
-              animate={{ y: [0, 30, 0] }}
+              animate={{ y: [0, 50, 0], x: [0, -30, 0], rotate: [0, -8, 0] }}
               transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-[75%] right-[5%] text-[12vw] font-black text-slate-950/5 italic leading-none"
+              className="absolute bottom-1/4 -right-16 opacity-[0.15] text-slate-950"
             >
-              ELITE
+              <Briefcase className="w-80 h-80" strokeWidth={0.3} />
+            </motion.div>
+            <motion.div
+              animate={{ y: [0, -60, 0], rotate: [0, 15, -15, 0], scale: [1, 1.1, 1] }}
+              transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+              className="absolute top-1/3 left-1/4 opacity-[0.12] text-slate-950 pointer-events-none"
+            >
+              <GraduationCap className="w-72 h-72" strokeWidth={0.3} />
+            </motion.div>
+            <motion.div
+              animate={{ rotate: 360, y: [0, 30, 0] }}
+              transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+              className="absolute top-1/2 right-[15%] opacity-[0.08] text-primary pointer-events-none"
+            >
+              <BookOpen className="w-64 h-64" strokeWidth={0.3} />
+            </motion.div>
+            <motion.div
+              animate={{ x: [-100, 100], y: [-10, 10, -10] }}
+              transition={{ x: { duration: 25, repeat: Infinity, ease: "linear" }, y: { duration: 5, repeat: Infinity, ease: "easeInOut" } }}
+              className="absolute top-1/2 left-0 w-full opacity-[0.12] pointer-events-none"
+            >
+              <Plane className="w-96 h-96 mx-auto -translate-y-1/2 text-orange-950" strokeWidth={0.2} />
             </motion.div>
           </div>
 
@@ -512,10 +439,10 @@ const About = () => {
                 {journeyEvents.map((event, idx) => (
                   <motion.div
                     key={idx}
-                    initial={{ opacity: 0, y: 50 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.7, delay: idx * 0.1 }}
+                    viewport={{ once: true, margin: "0px" }}
+                    transition={{ duration: 0.6, delay: idx * 0.08 }}
                     className={`flex flex-col md:flex-row items-start md:items-center gap-10 md:gap-0 ${idx % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
                   >
                     <div className="flex-1 w-full pl-16 md:pl-0">
@@ -625,7 +552,7 @@ const About = () => {
           <motion.div
             animate={{ scale: [1, 1.2, 1], rotate: 360 }}
             transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-            className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -z-10"
+            className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -z-10 hidden md:block"
           />
 
           <div className="container mx-auto px-4">

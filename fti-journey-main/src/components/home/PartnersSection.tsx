@@ -38,7 +38,7 @@ const PartnersSection = () => {
                         </span>
                     </div>
                     <h2 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 drop-shadow-sm pb-2">
-                        Global Network
+                        Global Opportunity
                     </h2>
                     <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-lg">
                         We are officially representing the most prestigious universities across the globe.

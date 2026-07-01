@@ -41,7 +41,7 @@ const PartnersSection = () => {
                         Global Opportunity
                     </h2>
                     <p className="mt-4 text-muted-foreground max-w-2xl mx-auto text-lg">
-                        We are officially representing the most prestigious universities across the globe.
+                        FTI offers the following universities admission across the globe.
                     </p>
                 </motion.div>
             </div>

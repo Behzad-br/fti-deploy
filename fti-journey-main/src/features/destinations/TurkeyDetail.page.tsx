@@ -1,6 +1,5 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { 
-  ArrowRight, 
+import { Info, ArrowRight, 
   CheckCircle, 
   GraduationCap, 
   DollarSign, 
@@ -15,8 +14,7 @@ import {
   Calendar,
   Building,
   Award,
-  Plane
-} from 'lucide-react';
+  Plane } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';

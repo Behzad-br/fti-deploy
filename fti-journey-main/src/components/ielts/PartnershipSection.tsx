@@ -163,18 +163,15 @@ const PartnershipSection = () => {
                                 transition={{ delay: 0.7, type: "spring", stiffness: 100 }}
                                 className="bg-white/80 backdrop-blur-xl p-6 rounded-3xl shadow-[0_20px_40px_rgba(0,0,0,0.06)] border border-white flex items-center gap-5 hover:shadow-[0_20px_40px_rgba(249,115,22,0.1)] transition-all lg:ml-12 group"
                             >
-                                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 rounded-2xl flex items-center justify-center p-3 shrink-0 border border-slate-100 group-hover:border-orange-200 transition-colors">
+                                <div className="w-20 h-20 sm:w-28 sm:h-28 bg-slate-50 rounded-2xl flex items-center justify-center p-2 shrink-0 border border-slate-100 group-hover:border-orange-200 transition-colors">
                                     <img 
                                         src="/aeo-logo.png" 
                                         alt="AEO Pakistan" 
-                                        className="w-full h-full object-contain scale-[1.2]"
+                                        className="w-full h-full object-contain scale-[1.5]"
                                     />
                                 </div>
                                 <div>
-                                    <div className="inline-block px-3 py-1 bg-orange-50 text-orange-600 text-[10px] font-bold uppercase tracking-wider rounded-lg mb-1 border border-orange-100">
-                                        Official Centre
-                                    </div>
-                                    <h4 className="font-bold text-slate-900 text-sm">AEO Pakistan</h4>
+                                    <h4 className="font-bold text-slate-900 text-base sm:text-lg">AEO Pakistan</h4>
                                 </div>
                             </motion.div>
                         </div>

@@ -160,18 +160,18 @@ const IELTSHero = () => {
                         variants={itemVariants}
                         className="flex flex-wrap items-center justify-center gap-6 md:gap-12 pt-12"
                     >
-                        <div className="bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-white/20 hover:scale-105 transition-transform duration-300 flex items-center justify-center">
+                        <div className="bg-white/90 backdrop-blur-sm px-6 rounded-xl shadow-lg border border-white/20 hover:scale-105 transition-transform duration-300 flex items-center justify-center h-16 md:h-20 w-40 md:w-56 overflow-hidden">
                             <img 
                                 src="/british-council-logo.png" 
                                 alt="British Council" 
-                                className="h-8 md:h-12 w-auto object-contain" 
+                                className="h-full w-full object-contain scale-150 md:scale-[1.7]" 
                             />
                         </div>
-                        <div className="bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg border border-white/20 hover:scale-105 transition-transform duration-300 flex items-center justify-center">
+                        <div className="bg-white/90 backdrop-blur-sm px-6 rounded-xl shadow-lg border border-white/20 hover:scale-105 transition-transform duration-300 flex items-center justify-center h-16 md:h-20 w-40 md:w-56 overflow-hidden">
                             <img 
                                 src="/aeo-logo.png" 
                                 alt="AEO Pakistan" 
-                                className="h-8 md:h-12 w-auto object-contain" 
+                                className="h-[80%] w-full object-contain" 
                             />
                         </div>
                     </motion.div>

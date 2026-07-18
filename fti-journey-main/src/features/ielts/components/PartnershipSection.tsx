@@ -79,7 +79,7 @@ const PartnershipSection = () => {
                             <img 
                                 src="/british-council-logo.png" 
                                 alt="British Council" 
-                                className="h-full w-auto object-contain drop-shadow-sm rounded-lg" 
+                                className="h-full w-auto object-contain drop-shadow-sm rounded-lg scale-150 md:scale-[1.7]" 
                                 onError={(e) => {
                                     (e.target as HTMLImageElement).src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/British_Council_logo.svg/512px-British_Council_logo.svg.png';
                                 }}

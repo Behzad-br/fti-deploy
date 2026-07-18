@@ -11,14 +11,6 @@ const AEOTestingCenter = () => {
             
             <div className="container mx-auto px-4 relative z-10">
                 <div className="max-w-4xl mx-auto text-center mb-16">
-                    <motion.span 
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="inline-block py-1.5 px-4 rounded-full bg-orange-100 text-orange-600 font-bold text-sm uppercase tracking-widest mb-6"
-                    >
-                        Official Testing Center
-                    </motion.span>
                     <motion.h2 
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}

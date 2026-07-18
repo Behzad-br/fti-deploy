@@ -6,38 +6,32 @@ const services = [
     {
         title: "Mock Tests",
         description: "Full-length, timed mock tests every week to simulate the real exam environment and track your progress.",
-        icon: FileText,
-        color: "bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white"
+        icon: FileText
     },
     {
         title: "Speaking Sessions",
         description: "One-on-one speaking interviews with expert trainers featuring detailed feedback and band prediction.",
-        icon: Mic,
-        color: "bg-orange-50 text-orange-500 group-hover:bg-orange-500 group-hover:text-white"
+        icon: Mic
     },
     {
         title: "Writing Evaluation",
         description: "Comprehensive daily assessment of Task 1 and Task 2 with vocabulary enhancement suggestions.",
-        icon: PenTool,
-        color: "bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white"
+        icon: PenTool
     },
     {
         title: "Listening Labs",
         description: "State-of-the-art audio labs equipped with high-quality headsets for crystal clear listening practice.",
-        icon: Headphones,
-        color: "bg-green-50 text-green-600 group-hover:bg-green-600 group-hover:text-white"
+        icon: Headphones
     },
     {
         title: "Reading Strategies",
         description: "Master skimming, scanning, and time management techniques to tackle complex academic texts.",
-        icon: BookOpen,
-        color: "bg-red-50 text-red-600 group-hover:bg-red-600 group-hover:text-white"
+        icon: BookOpen
     },
     {
         title: "Masterclasses",
         description: "Specialized workshops focusing on advanced grammar, complex sentence structures, and lexical resource.",
-        icon: MonitorPlay,
-        color: "bg-indigo-50 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white"
+        icon: MonitorPlay
     }
 ];
 
@@ -75,13 +69,13 @@ const IELTSServices = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
-                            className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-300 group cursor-default"
+                            className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:bg-gradient-to-br hover:from-orange-500 hover:to-amber-500 hover:shadow-xl hover:shadow-orange-500/30 hover:-translate-y-2 transition-all duration-300 group cursor-default relative overflow-hidden"
                         >
-                            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-colors duration-300 ${service.color}`}>
+                            <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-colors duration-300 bg-orange-50 text-orange-600 group-hover:bg-white/20 group-hover:text-white">
                                 <service.icon className="w-7 h-7" />
                             </div>
-                            <h3 className="text-xl font-bold text-slate-800 mb-3">{service.title}</h3>
-                            <p className="text-slate-600 leading-relaxed">
+                            <h3 className="text-xl font-bold text-slate-800 group-hover:text-white mb-3 transition-colors">{service.title}</h3>
+                            <p className="text-slate-600 group-hover:text-orange-50 leading-relaxed transition-colors">
                                 {service.description}
                             </p>
                         </motion.div>

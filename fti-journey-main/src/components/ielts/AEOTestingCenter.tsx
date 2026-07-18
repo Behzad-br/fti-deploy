@@ -21,15 +21,6 @@ const AEOTestingCenter = () => {
                         Proud to be an Official <br/>
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-500">AEO IELTS Testing Center</span>
                     </motion.h2>
-                    <motion.p 
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
-                        className="text-lg md:text-xl text-slate-600 leading-relaxed"
-                    >
-                        As an official AEO testing center, we provide our students with the unique advantage of preparing and appearing for their actual IELTS exam in the exact same environment. This ensures maximum comfort, zero test-day anxiety, and the highest possible band scores.
-                    </motion.p>
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">

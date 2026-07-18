@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Layout from '@/components/layout/Layout';
 import HeroSection from './components/HeroSection';
+import AeoTestingCenterHome from './components/AeoTestingCenterHome';
 import ServicesSection from './components/ServicesSection';
 import DestinationsSection from './components/DestinationsSection';
 import WhyChooseUs from './components/WhyChooseUs';
@@ -33,6 +34,7 @@ const Index = () => {
     <Layout>
       <div className="page-transition">
         <HeroSection />
+        <AeoTestingCenterHome />
         <PartnersSection />
         <ServicesSection />
         <DestinationsSection />

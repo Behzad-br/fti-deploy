@@ -63,8 +63,7 @@ const Footer = () => {
               © {new Date().getFullYear()} FTI Consultants. Engineered for Excellence.
             </p>
             <div className="flex gap-8 text-sm text-white/40">
-              <Link to="/privacy" className="hover:text-primary transition-colors hover:underline">Privacy Policy</Link>
-              <Link to="/terms" className="hover:text-primary transition-colors hover:underline">Terms of Service</Link>
+              <a href="https://www.instagram.com/behzad_rehan?igsh=NWRqN2VjZWl6OXZ1" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors hover:underline">Developer Behzad Rehan</a>
             </div>
           </div>
         </div>

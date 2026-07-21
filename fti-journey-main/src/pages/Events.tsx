@@ -109,22 +109,6 @@ const Events = () => {
                                 }}>
                                     Explore Events
                                 </Button>
-                                <div className="flex items-center gap-6 py-2 px-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
-                                    <div className="flex -space-x-3">
-                                        {[1, 2, 3, 4].map((i) => (
-                                            <img
-                                                key={i}
-                                                src={`https://i.pravatar.cc/150?u=${i}`}
-                                                className="w-10 h-10 rounded-full border-2 border-slate-900"
-                                                alt="User"
-                                            />
-                                        ))}
-                                        <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-[10px] font-bold text-white border-2 border-slate-900">
-                                            5k+
-                                        </div>
-                                    </div>
-                                    <span className="text-white font-medium text-sm">Students Attended</span>
-                                </div>
                             </div>
                         </motion.div>
                     </div>
@@ -217,9 +201,7 @@ const Events = () => {
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
                             >
-                                <span className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-slate-100 border border-slate-200 text-primary font-black text-xs uppercase tracking-[0.2em] mb-6 shadow-sm backdrop-blur-md">
-                                    <Sparkles className="w-4 h-4" /> Grand Education Expo
-                                </span>
+
                                 <h2 className="text-4xl md:text-6xl font-black text-slate-900 leading-tight tracking-tight">
                                     Moments from Our <br /> <span className="text-primary italic">Past Events</span>
                                 </h2>
@@ -379,12 +361,7 @@ const Events = () => {
                                 viewport={{ once: true }}
                                 className="max-w-2xl mx-auto relative z-10"
                             >
-                                <h2 className="text-3xl md:text-5xl font-black text-white mb-6">
-                                    Don't Miss Out on Our <span className="text-primary">Next Big Event!</span>
-                                </h2>
-                                <p className="text-gray-400 mb-10">
-                                    Join our newsletter and be the first to know about upcoming expos, university visits, and exclusive student workshops.
-                                </p>
+
                                 <form className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
                                     <input
                                         type="email"

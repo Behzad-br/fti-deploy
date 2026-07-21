@@ -22,7 +22,7 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 const AdminLogin = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-    const [loginRole, setLoginRole] = useState<'admin' | 'employee'>('admin');
+    const loginRole = 'admin';
     const navigate = useNavigate();
     const { login } = useAuth();
 
@@ -82,29 +82,7 @@ const AdminLogin = () => {
             >
                 <div className="bg-white/80 backdrop-blur-xl border border-white/20 shadow-2xl rounded-3xl overflow-hidden p-8 md:p-10">
 
-                    {/* Role Selector Tabs */}
-                    <div className="flex bg-gray-100/50 p-1 rounded-2xl mb-8 relative">
-                        <div
-                            className="absolute inset-y-1 w-[calc(50%-4px)] bg-white rounded-xl shadow-sm border border-gray-200/50 transition-all duration-300 ease-out"
-                            style={{
-                                left: loginRole === 'admin' ? '4px' : 'calc(50%)'
-                            }}
-                        />
-                        <button
-                            type="button"
-                            onClick={() => setLoginRole('admin')}
-                            className={`flex-1 py-2.5 text-sm font-semibold rounded-xl relative z-10 transition-colors ${loginRole === 'admin' ? 'text-primary' : 'text-gray-500 hover:text-gray-700'}`}
-                        >
-                            Admin Login
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => setLoginRole('employee')}
-                            className={`flex-1 py-2.5 text-sm font-semibold rounded-xl relative z-10 transition-colors ${loginRole === 'employee' ? 'text-primary' : 'text-gray-500 hover:text-gray-700'}`}
-                        >
-                            Employee Login
-                        </button>
-                    </div>
+
 
                     {/* Header */}
                     <div className="text-center mb-10">
@@ -121,7 +99,7 @@ const AdminLogin = () => {
                             Welcome Back
                         </h1>
                         <p className="text-muted-foreground">
-                            Sign in to access your {loginRole === 'admin' ? 'admin' : 'employee'} dashboard
+                            Sign in to access your admin dashboard
                         </p>
                     </div>
 
@@ -139,7 +117,7 @@ const AdminLogin = () => {
                                     {...form.register("email")}
                                     id="email"
                                     type="email"
-                                    placeholder={loginRole === 'admin' ? "admin@fti.edu.pk" : "employee@fti.edu.pk"}
+                                    placeholder="admin@fti.edu.pk"
                                     className="pl-10 h-12 bg-gray-50/50 border-gray-200 focus:bg-white focus:border-primary/50 transition-all rounded-xl"
                                 />
                             </div>

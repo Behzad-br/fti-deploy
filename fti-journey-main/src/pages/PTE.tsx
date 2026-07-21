@@ -235,7 +235,7 @@ const PTE = () => {
                   className="border-2 border-white/40 text-white hover:bg-white hover:text-orange-500 bg-transparent w-full sm:w-auto"
                   asChild
                 >
-                  <a href="https://fti.20task.com/auth/login" target="_blank" rel="noopener noreferrer">
+                  <a href="https://fti.portal.alfapte.com/v1/wc/login" target="_blank" rel="noopener noreferrer">
                     Access Your Portal
                   </a>
                 </Button>
@@ -765,7 +765,7 @@ const PTE = () => {
                   <Link to="/free-consultation">Book Free Consultation</Link>
                 </Button>
                 <Button size="xl" variant="outline" className="border-2 border-white/40 text-white hover:bg-white hover:text-orange-500 bg-transparent font-bold text-lg" asChild>
-                  <a href="https://fti.20task.com/auth/login" target="_blank" rel="noopener noreferrer">Access Portal</a>
+                  <a href="https://fti.portal.alfapte.com/v1/wc/login" target="_blank" rel="noopener noreferrer">Access Portal</a>
                 </Button>
               </div>
             </motion.div>

@@ -43,7 +43,7 @@ const LoadingScreen = ({ isLoading }: LoadingScreenProps) => {
                     </div>
 
                     {/* Subtle Noise Texture Overlay */}
-                    <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+                    <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('/noise.svg')]" />
                 </motion.div>
             )}
         </AnimatePresence>

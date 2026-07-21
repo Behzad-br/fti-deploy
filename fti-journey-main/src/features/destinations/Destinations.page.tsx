@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
+import SEO from '@/components/shared/SEO';
 
 const destinations = [
   {
@@ -155,6 +156,12 @@ const destinations = [
 const Destinations = () => {
   return (
     <Layout>
+      <SEO 
+        title="Study Abroad Destinations: UK, USA, Canada & More | FTI Consultant" 
+        description="Explore top study destinations with FTI Consultant. Study in the UK, USA, Canada, Australia, and Europe. Find the best universities & scholarships for your future."
+        keywords="study in uk from pakistan, study in canada consultants, study in usa consultants pakistan, study in australia, study abroad destinations, fti consultant countries"
+        url="https://fticonsultants.com/destinations"
+      />
       <div className="page-transition">
 
         {/* ── HERO SECTION ── */}

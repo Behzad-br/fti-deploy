@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { Event, GalleryItem, events, eventGallery } from '@/data/events';
-import { cmsApi } from '@/services/api';
+import { pageApi, uploadApi } from '@/services/api';
 
 // Define the shape of our CMS Data
 export interface University {
@@ -166,28 +166,56 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
   useEffect(() => {
     const fetchFromBackend = async () => {
       try {
-        const backendData = await cmsApi.get();
-        // Backend returns { global_cms_data: { ... } } shape
-        const remotePayload = backendData['global_cms_data'] ?? backendData;
+        const [home, about, ielts, pte, destinations, services, events, contact] = await Promise.all([
+          pageApi.get('home'),
+          pageApi.get('about'),
+          pageApi.get('ielts'),
+          pageApi.get('pte'),
+          pageApi.get('destinations'),
+          pageApi.get('services'),
+          pageApi.get('events'),
+          pageApi.get('contact'),
+        ]);
 
-        if (remotePayload && typeof remotePayload === 'object' && Object.keys(remotePayload).length > 0) {
-          const merged: CMSData = {
-            ...defaultCMSData,
-            ...remotePayload,
-            homeUniversityPartners:
-              remotePayload.homeUniversityPartners ?? defaultCMSData.homeUniversityPartners,
-            eventsList:
-              remotePayload.eventsList ?? defaultCMSData.eventsList,
-            eventGalleryList:
-              remotePayload.eventGalleryList ?? defaultCMSData.eventGalleryList,
-          };
-          setCmsData(merged);
-          // Keep localStorage in sync with backend truth
-          localStorage.setItem('fti_cms_data', JSON.stringify(merged));
-        }
-      } catch {
-        // Backend unavailable — localStorage fallback is already in state
-        console.warn('[CMS] Backend unavailable, using localStorage fallback.');
+        const merged: CMSData = {
+          ...defaultCMSData,
+          
+          homeHeroTitle: home.heroTitle ?? defaultCMSData.homeHeroTitle,
+          homeHeroDescription: home.heroDescription ?? defaultCMSData.homeHeroDescription,
+          homeHeroImage: home.heroImage ?? defaultCMSData.homeHeroImage,
+          homeSuccessImages: home.successImages ?? defaultCMSData.homeSuccessImages,
+          homeUniversityPartners: home.universityPartners?.length ? home.universityPartners : defaultCMSData.homeUniversityPartners,
+
+          aboutHeroTitle: about.heroTitle ?? defaultCMSData.aboutHeroTitle,
+          aboutHeroDescription: about.heroDescription ?? defaultCMSData.aboutHeroDescription,
+
+          ieltsHeroTitle: ielts.heroTitle ?? defaultCMSData.ieltsHeroTitle,
+          ieltsHeroDescription: ielts.heroDescription ?? defaultCMSData.ieltsHeroDescription,
+          ieltsSuccessImages: ielts.successImages ?? defaultCMSData.ieltsSuccessImages,
+
+          pteHeroTitle: pte.heroTitle ?? defaultCMSData.pteHeroTitle,
+          pteHeroDescription: pte.heroDescription ?? defaultCMSData.pteHeroDescription,
+          pteSuccessImages: pte.successImages ?? defaultCMSData.pteSuccessImages,
+
+          destinationsHeroTitle: destinations.heroTitle ?? defaultCMSData.destinationsHeroTitle,
+          destinationsHeroDescription: destinations.heroDescription ?? defaultCMSData.destinationsHeroDescription,
+
+          servicesHeroTitle: services.heroTitle ?? defaultCMSData.servicesHeroTitle,
+          servicesHeroDescription: services.heroDescription ?? defaultCMSData.servicesHeroDescription,
+
+          eventsHeroTitle: events.heroTitle ?? defaultCMSData.eventsHeroTitle,
+          eventsHeroDescription: events.heroDescription ?? defaultCMSData.eventsHeroDescription,
+          eventsList: events.eventsList?.length ? events.eventsList : defaultCMSData.eventsList,
+          eventGalleryList: events.eventGalleryList?.length ? events.eventGalleryList : defaultCMSData.eventGalleryList,
+
+          contactHeroTitle: contact.heroTitle ?? defaultCMSData.contactHeroTitle,
+          contactHeroDescription: contact.heroDescription ?? defaultCMSData.contactHeroDescription,
+        };
+
+        setCmsData(merged);
+        localStorage.setItem('fti_cms_data', JSON.stringify(merged));
+      } catch (err) {
+        console.warn('[CMS] Backend unavailable, using localStorage fallback.', err);
       }
     };
 
@@ -207,7 +235,81 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     // Then persist to backend (fire and forget with error handling)
     setIsSyncing(true);
     try {
-      await cmsApi.update(newData);
+      const updates = [];
+      
+      // Determine which pages need updating based on keys
+      const hasHome = Object.keys(newData).some(k => k.startsWith('home'));
+      if (hasHome) {
+        updates.push(pageApi.update('home', {
+          heroTitle: newData.homeHeroTitle,
+          heroDescription: newData.homeHeroDescription,
+          heroImage: newData.homeHeroImage,
+          successImages: newData.homeSuccessImages,
+          universityPartners: newData.homeUniversityPartners
+        }));
+      }
+
+      const hasAbout = Object.keys(newData).some(k => k.startsWith('about'));
+      if (hasAbout) {
+        updates.push(pageApi.update('about', {
+          heroTitle: newData.aboutHeroTitle,
+          heroDescription: newData.aboutHeroDescription
+        }));
+      }
+
+      const hasIelts = Object.keys(newData).some(k => k.startsWith('ielts'));
+      if (hasIelts) {
+        updates.push(pageApi.update('ielts', {
+          heroTitle: newData.ieltsHeroTitle,
+          heroDescription: newData.ieltsHeroDescription,
+          successImages: newData.ieltsSuccessImages
+        }));
+      }
+
+      const hasPte = Object.keys(newData).some(k => k.startsWith('pte'));
+      if (hasPte) {
+        updates.push(pageApi.update('pte', {
+          heroTitle: newData.pteHeroTitle,
+          heroDescription: newData.pteHeroDescription,
+          successImages: newData.pteSuccessImages
+        }));
+      }
+
+      const hasDestinations = Object.keys(newData).some(k => k.startsWith('destinations'));
+      if (hasDestinations) {
+        updates.push(pageApi.update('destinations', {
+          heroTitle: newData.destinationsHeroTitle,
+          heroDescription: newData.destinationsHeroDescription
+        }));
+      }
+
+      const hasServices = Object.keys(newData).some(k => k.startsWith('services'));
+      if (hasServices) {
+        updates.push(pageApi.update('services', {
+          heroTitle: newData.servicesHeroTitle,
+          heroDescription: newData.servicesHeroDescription
+        }));
+      }
+
+      const hasEvents = Object.keys(newData).some(k => k.startsWith('event'));
+      if (hasEvents) {
+        updates.push(pageApi.update('events', {
+          heroTitle: newData.eventsHeroTitle,
+          heroDescription: newData.eventsHeroDescription,
+          eventsList: newData.eventsList,
+          eventGalleryList: newData.eventGalleryList
+        }));
+      }
+
+      const hasContact = Object.keys(newData).some(k => k.startsWith('contact'));
+      if (hasContact) {
+        updates.push(pageApi.update('contact', {
+          heroTitle: newData.contactHeroTitle,
+          heroDescription: newData.contactHeroDescription
+        }));
+      }
+
+      await Promise.all(updates);
     } catch (err) {
       console.warn('[CMS] Failed to sync to backend, saved locally only.', err);
     } finally {
@@ -215,16 +317,19 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     }
   }, []);
 
-  // ── uploadImage: convert file to base64 string ─────────────────────────
-  const uploadImage = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        resolve(reader.result as string);
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
+  // ── uploadImage: upload via API ─────────────────────────
+  const uploadImage = async (file: File): Promise<string> => {
+    try {
+      const res = await uploadApi.uploadImage(file);
+      // Ensure it uses the API url if relative
+      const baseURL = API_BASE_URL;
+      // The backend returns /uploads/... so we just prepend the host
+      const host = baseURL.replace('/api', '');
+      return `${host}${res.url}`;
+    } catch (err) {
+      console.error('Upload failed', err);
+      throw err;
+    }
   };
 
   return (

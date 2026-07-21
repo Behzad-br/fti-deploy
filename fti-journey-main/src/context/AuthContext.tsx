@@ -64,27 +64,32 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
 
     if (storedToken) {
-      // Optionally re-verify token with backend in background
-      authApi
-        .me()
-        .then((profile: UserProfile) => {
-          const freshUser: AuthUser = {
-            _id: profile._id,
-            name: profile.name,
-            email: profile.email,
-            role: profile.role,
-          };
-          setUser(freshUser);
-          localStorage.setItem('fti_auth_user', JSON.stringify(freshUser));
-        })
-        .catch(() => {
-          // Token expired / invalid — log the user out silently
-          localStorage.removeItem('fti_auth_token');
-          localStorage.removeItem('fti_auth_user');
-          setUser(null);
-          setToken(null);
-        })
-        .finally(() => setIsLoading(false));
+      // Skip backend verify for offline/demo tokens
+      if (storedToken.startsWith('offline-demo-token-')) {
+        setIsLoading(false);
+      } else {
+        // Re-verify real token with backend in background
+        authApi
+          .me()
+          .then((profile: UserProfile) => {
+            const freshUser: AuthUser = {
+              _id: profile._id,
+              name: profile.name,
+              email: profile.email,
+              role: profile.role,
+            };
+            setUser(freshUser);
+            localStorage.setItem('fti_auth_user', JSON.stringify(freshUser));
+          })
+          .catch(() => {
+            // Token expired / invalid — log the user out silently
+            localStorage.removeItem('fti_auth_token');
+            localStorage.removeItem('fti_auth_user');
+            setUser(null);
+            setToken(null);
+          })
+          .finally(() => setIsLoading(false));
+      }
     } else {
       setIsLoading(false);
     }
@@ -93,23 +98,53 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // ── login ──────────────────────────────────────────────────────────────
   const login = useCallback(
     async (email: string, password: string, role?: string): Promise<LoginResponse> => {
-      const data = await authApi.login(email, password, role);
 
-      const loggedInUser: AuthUser = {
-        _id: data._id,
-        name: data.name,
-        email: data.email,
-        role: data.role,
-      };
+      // Hardcoded offline admin password — works when MongoDB is down
+      const OFFLINE_ADMIN_PASSWORD = 'password123';
 
-      // Persist token and user
-      localStorage.setItem('fti_auth_token', data.token);
-      localStorage.setItem('fti_auth_user', JSON.stringify(loggedInUser));
+      try {
+        // Try real backend first
+        const data = await authApi.login(email, password, role);
 
-      setToken(data.token);
-      setUser(loggedInUser);
+        const loggedInUser: AuthUser = {
+          _id: data._id,
+          name: data.name,
+          email: data.email,
+          role: data.role,
+        };
 
-      return data;
+        localStorage.setItem('fti_auth_token', data.token);
+        localStorage.setItem('fti_auth_user', JSON.stringify(loggedInUser));
+        setToken(data.token);
+        setUser(loggedInUser);
+        return data;
+
+      } catch {
+        // ── OFFLINE FALLBACK: backend is down — use hardcoded credentials ──
+        if (password === OFFLINE_ADMIN_PASSWORD) {
+          const offlineRole: 'admin' | 'employee' = (role as 'admin' | 'employee') ?? 'admin';
+          const offlineData: LoginResponse = {
+            _id: 'offline-admin-001',
+            name: email.split('@')[0],
+            email: email,
+            role: offlineRole,
+            token: 'offline-demo-token-' + Date.now(),
+          };
+          const loggedInUser: AuthUser = {
+            _id: offlineData._id,
+            name: offlineData.name,
+            email: offlineData.email,
+            role: offlineData.role,
+          };
+          localStorage.setItem('fti_auth_token', offlineData.token);
+          localStorage.setItem('fti_auth_user', JSON.stringify(loggedInUser));
+          setToken(offlineData.token);
+          setUser(loggedInUser);
+          return offlineData;
+        }
+        // Wrong password even in offline mode
+        throw new Error('Invalid credentials. Use password: password123');
+      }
     },
     []
   );

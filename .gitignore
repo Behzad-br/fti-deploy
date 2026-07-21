@@ -13,6 +13,13 @@ build/
 .env.development.local
 .env.test.local
 .env.production.local
+.env.production
+.env.staging
+
+# Uploads and Temp DB
+backend/uploads/
+backend/tempdb/
+.mongodb-memory-server/
 
 # Logs
 npm-debug.log*

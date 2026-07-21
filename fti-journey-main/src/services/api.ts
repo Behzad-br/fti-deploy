@@ -77,29 +77,54 @@ export const authApi = {
 };
 
 // ─────────────────────────────────────────────
-//  CMS API
+//  PAGE API (Modular CMS)
 // ─────────────────────────────────────────────
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type CMSPayload = Record<string, any>;
 
-export const cmsApi = {
-  /** GET /api/cms — public, no auth needed */
-  get: async (): Promise<CMSPayload> => {
-    const res = await fetch(`${BASE_URL}/cms`, {
+export const pageApi = {
+  /** GET /api/page/:pageName — public */
+  get: async (pageName: string): Promise<CMSPayload> => {
+    const res = await fetch(`${BASE_URL}/page/${pageName}`, {
       method: 'GET',
       headers: buildHeaders(),
     });
     return handleResponse<CMSPayload>(res);
   },
 
-  /** POST /api/cms/update — requires auth */
-  update: async (data: CMSPayload): Promise<CMSPayload> => {
-    const res = await fetch(`${BASE_URL}/cms/update`, {
+  /** POST /api/page/:pageName — requires auth */
+  update: async (pageName: string, data: CMSPayload): Promise<CMSPayload> => {
+    const res = await fetch(`${BASE_URL}/page/${pageName}`, {
       method: 'POST',
       headers: buildHeaders(true),
       body: JSON.stringify(data),
     });
     return handleResponse<CMSPayload>(res);
+  },
+};
+
+// ─────────────────────────────────────────────
+//  UPLOAD API
+// ─────────────────────────────────────────────
+
+export const uploadApi = {
+  /** POST /api/upload — requires auth */
+  uploadImage: async (file: File): Promise<{ url: string; message: string }> => {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    const headers: Record<string, string> = {};
+    const token = getToken();
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    const res = await fetch(`${BASE_URL}/upload`, {
+      method: 'POST',
+      headers, // Do not set Content-Type manually for FormData
+      body: formData,
+    });
+    return handleResponse<{ url: string; message: string }>(res);
   },
 };

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Layout from '@/components/layout/Layout';
+import SEO from '@/components/shared/SEO';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/hooks/use-toast';
@@ -198,7 +199,13 @@ const Services = () => {
 
   return (
     <Layout>
-      <div className="page-transition bg-white overflow-hidden">
+      <SEO 
+        title="Study Abroad Services | FTI Consultant" 
+        description="FTI Consultant provides comprehensive study abroad services: career counseling, university selection, admission processing, scholarship help, & expert visa guidance."
+        keywords="study abroad services, fti consultant services, university admission assistance, student visa guidance pakistan, scholarship assistance, career counseling"
+        url="https://fticonsultants.com/services"
+      />
+      <div className="page-transition min-h-screen bg-slate-900 selection:bg-orange-500/30 selection:text-orange-200">
 
         {/* ── REDESIGNED PREMIUM HERO ── */}
         <section className="relative pt-24 pb-20 md:pt-32 md:pb-32 overflow-hidden min-h-[50vh] flex items-center">
@@ -207,7 +214,7 @@ const Services = () => {
             {/* Orange Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-orange-600/95 via-orange-500/90 to-amber-500/80"></div>
             
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-soft-light"></div>
+            <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-20 mix-blend-soft-light"></div>
             
             <motion.div
               animate={{ 

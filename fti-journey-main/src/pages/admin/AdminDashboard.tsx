@@ -28,33 +28,7 @@ const AdminDashboard = () => {
             path: "/admin/pages/home",
             action: "Manage Home"
         },
-        {
-            title: "Manage Profile Page",
-            description: "Edit the About Us / Profile page hero and description.",
-            icon: FileText,
-            color: "text-violet-500",
-            bg: "bg-violet-50",
-            path: "/admin/pages/about",
-            action: "Manage Profile"
-        },
-        {
-            title: "Manage Destinations",
-            description: "Edit the study destinations page hero section text.",
-            icon: FileText,
-            color: "text-red-500",
-            bg: "bg-red-50",
-            path: "/admin/pages/destinations",
-            action: "Manage Destinations"
-        },
-        {
-            title: "Manage Services",
-            description: "Edit the services page hero title and description.",
-            icon: FileText,
-            color: "text-amber-500",
-            bg: "bg-amber-50",
-            path: "/admin/pages/services",
-            action: "Manage Services"
-        },
+
         {
             title: "Manage Events",
             description: "Edit the events page hero section content.",

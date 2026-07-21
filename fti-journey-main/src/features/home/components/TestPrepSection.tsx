@@ -57,7 +57,7 @@ const TestPrepSection = () => {
                 ))}
               </ul>
               <Button variant="hero" size="lg" className="w-full group rounded-full h-12 text-base font-bold shadow-md" asChild>
-                <Link to="/ielts">
+                <Link to="/apply-ielts">
                   Book Demo Class
                   <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Link>
@@ -91,7 +91,7 @@ const TestPrepSection = () => {
                 ))}
               </ul>
               <Button size="lg" className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white group rounded-full h-12 text-base font-bold shadow-md border-none" asChild>
-                <Link to="/pte">
+                <Link to="/apply-pte">
                   Book Demo Class
                   <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
                 </Link>

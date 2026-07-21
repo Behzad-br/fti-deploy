@@ -12,7 +12,8 @@ import {
     LayoutDashboard,
     ChevronLeft,
     ChevronRight,
-    Search
+    Search,
+    Mail
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -27,22 +28,27 @@ const AdminLayout = () => {
 
     const handleLogout = () => {
         logout();
-        navigate('/admin/login');
+        navigate(user?.role === 'admin' ? '/admin/login' : '/employee/login');
     };
 
-    const menuItems = [
-        { icon: LayoutDashboard, label: 'Dashboard', path: '/admin/dashboard' },
-        { icon: FileText, label: 'Manage Home', path: '/admin/pages/home' },
-        { icon: FileText, label: 'Manage Profile', path: '/admin/pages/about' },
-        { icon: FileText, label: 'Manage Destinations', path: '/admin/pages/destinations' },
-        { icon: FileText, label: 'Manage Services', path: '/admin/pages/services' },
-        { icon: FileText, label: 'Manage Events', path: '/admin/pages/events' },
-        { icon: FileText, label: 'Manage IELTS', path: '/admin/pages/ielts' },
-        { icon: FileText, label: 'Manage PTE', path: '/admin/pages/pte' },
-        { icon: FileText, label: 'Manage Contact', path: '/admin/pages/contact' },
-        { icon: Users, label: 'Student Applications', path: '/admin/students' },
-        { icon: Settings, label: 'Settings', path: '/admin/settings' },
+    const basePath = user?.role === 'admin' ? '/admin' : '/employee';
+
+    let menuItems = [
+        { icon: LayoutDashboard, label: 'Dashboard', path: `${basePath}/dashboard` },
+        { icon: FileText, label: 'Manage Home', path: `${basePath}/pages/home` },
+        { icon: FileText, label: 'Manage Events', path: `${basePath}/pages/events` },
+        { icon: FileText, label: 'Manage IELTS', path: `${basePath}/pages/ielts` },
+        { icon: FileText, label: 'Manage PTE', path: `${basePath}/pages/pte` },
+        { icon: FileText, label: 'Manage Contact', path: `${basePath}/pages/contact` },
+        { icon: Mail, label: 'Contact Submissions', path: `${basePath}/contact-submissions` },
+        { icon: FileText, label: 'Consultation Enquiries', path: `${basePath}/enquiries` },
+        { icon: Settings, label: 'Test Prep Queries', path: `${basePath}/test-queries` },
+        { icon: Settings, label: 'Settings', path: `${basePath}/settings` },
     ];
+
+    if (user?.role !== 'admin') {
+        menuItems = menuItems.filter(item => item.path !== `${basePath}/settings`);
+    }
 
     const sidebarVariants = {
         expanded: { width: 280, transition: { duration: 0.4, ease: "easeInOut" } },

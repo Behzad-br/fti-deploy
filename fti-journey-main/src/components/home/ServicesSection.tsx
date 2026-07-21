@@ -79,7 +79,7 @@ const ServicesSection = () => {
         >
 
           <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-3">
-            Foreign Education Solutions
+            Our Services
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
             We guide you through every step of your study abroad journey

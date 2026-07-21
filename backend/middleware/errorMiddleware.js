@@ -99,6 +99,12 @@ const errorHandler = (err, req, res, next) => {
     } else {
         let error = Object.assign(Object.create(Object.getPrototypeOf(err)), err);
         error.message = err.message;
+        error.name = err.name;
+        error.code = err.code;
+
+        if (err.type === 'entity.parse.failed') {
+            error = new AppError('Malformed JSON payload', 400);
+        }
 
         if (error.name === 'CastError')           error = handleCastErrorDB(error);
         if (error.code === 11000)                 error = handleDuplicateFieldsDB(error);

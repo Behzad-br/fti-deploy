@@ -49,7 +49,7 @@ const ChatAssistant = () => {
 
         // 2. IELTS / PTE COACHING
         if (q.includes('ielts') || q.includes('pte') || q.includes('test') || q.includes('english') || q.includes('training')) {
-            return "FTI is a **Platinum Partner** of the British Council and IDP. Our coaching program includes:\n\n• **Certified Trainers:** Expert guidance from high-achieving instructors.\n• **Flexible Batches:** Morning (10 AM), Afternoon (2 PM), and Evening (6 PM).\n• **Free Mock Tests:** Regular assessments to track your progress.\n• **Affordable Fees:** Starting from PKR 15,000.\n\nWould you like to register for a **Free Demo Class**?";
+            return "FTI is a **Platinum Partner** of the British Council and IDP. Our coaching program includes:\n\n• **Certified Trainers:** Expert guidance from high-achieving instructors.\n• **Flexible Batches:** Morning (10 AM), Afternoon (2 PM), and Evening (6 PM).\n• **Free Mock Tests:** Regular assessments to track your progress.\n• **IELTS:** Official Cambridge testing materials and same venue testing at our AEO Testing Center.\n• **PTE:** Pearson Registration Center with an AI-powered practice system and fast results.\n\nWould you like to register for a **Free Demo Class**?";
         }
 
         // 3. STUDY DESTINATIONS - UK
@@ -200,12 +200,7 @@ const ChatAssistant = () => {
                                     </div>
                                     <div>
                                         <h3 className="font-black text-xl tracking-tight leading-none uppercase">FTI Smart Guide</h3>
-                                        <div className="flex items-center gap-2 mt-2">
-                                            <div className="px-2 py-0.5 bg-black/20 rounded-full flex items-center gap-1.5 border border-white/20">
-                                                <Sparkles className="w-2.5 h-2.5 text-yellow-300" />
-                                                <span className="text-[9px] text-white/90 uppercase tracking-[0.2em] font-black">Powered by GPT AI</span>
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </div>
                                 <button

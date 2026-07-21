@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { API_BASE_URL } from '../../config/api';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
@@ -7,36 +8,61 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from '@/hooks/use-toast';
 
-const ApplyIELTS = () => {
-  const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', phone: '', email: '', courseType: '', targetBand: '', timing: '' });
+const BRANCHES = [
+  { key: 'branch_lahore', label: 'Lahore Branch' },
+  { key: 'branch_faisalabad', label: 'Faisalabad Branch' },
+  { key: 'branch_rawalpindi', label: 'Rawalpindi Branch' },
+  { key: 'branch_gujranwala', label: 'Gujranwala (Head Office)' },
+  { key: 'branch_london', label: 'London (UK Office)' },
+  { key: 'branch_alipurchatta', label: 'Ali Pur Chatta Branch' },
+  { key: 'branch_bahawalpur', label: 'Bahawalpur Branch' },
+  { key: 'branch_wazirabad', label: 'Wazirabad Branch' }
+];
 
-  const handleSubmit = (e: React.FormEvent) => {
+const ApplyIELTS = () => {
+  const [whatsappSettings, setWhatsappSettings] = useState<Record<string, string>>({});
+  const [formData, setFormData] = useState({ name: '', phone: '', email: '', preferredBranch: '', qualification: '', passingYear: '' });
+
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/settings/whatsapp`)
+      .then(res => res.json())
+      .then(data => setWhatsappSettings(data))
+      .catch(err => console.error("Failed to load whatsapp settings:", err));
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.phone || !formData.country) {
+    if (!formData.name || !formData.phone || !formData.preferredBranch) {
       toast({ title: 'Please fill required fields', variant: 'destructive' });
       return;
     }
-    setSubmitted(true);
-    toast({ title: 'Application submitted!', description: 'Our counsellor will contact you within 24 hours.' });
-  };
 
-  if (submitted) {
-    return (
-      <Layout>
-        <div className="min-h-[60vh] flex items-center justify-center">
-          <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-center p-8">
-            <div className="w-20 h-20 mx-auto mb-6 rounded-full gradient-primary flex items-center justify-center">
-              <CheckCircle className="h-10 w-10 text-white" />
-            </div>
-            <h1 className="text-3xl font-bold text-foreground mb-4">Application Received!</h1>
-            <p className="text-muted-foreground mb-6">Thank you for your interest. Our counsellor will contact you within 24 hours.</p>
-            <Button variant="hero" onClick={() => setSubmitted(false)}>Submit Another</Button>
-          </motion.div>
-        </div>
-      </Layout>
-    );
-  }
+    try {
+      await fetch(`${API_BASE_URL}/test-queries`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, testType: 'IELTS' })
+      });
+    } catch (error) {
+      console.error('Failed to submit query to backend', error);
+    }
+    
+    toast({ title: 'Application submitted!', description: 'Redirecting to WhatsApp...' });
+
+    // WhatsApp Redirect
+    const targetNumber = whatsappSettings['ieltsWhatsApp'];
+    if (targetNumber) {
+        const message = `Hello, I would like to book an IELTS Demo/Class!\n\nName: ${formData.name}\nPhone: ${formData.phone}\nEmail: ${formData.email || '-'}\nLocation: ${BRANCHES.find(b => b.key === formData.preferredBranch)?.label || '-'}\nQualification: ${formData.qualification || '-'}\nPassing Year: ${formData.passingYear || '-'}`;
+        const encodedMessage = encodeURIComponent(message);
+        
+        window.open(`https://wa.me/${targetNumber.replace(/\+/g, '')}?text=${encodedMessage}`, '_blank');
+    } else {
+        toast({ title: 'Application submitted!', description: 'Our counsellor will contact you within 24 hours.' });
+    }
+
+    // Clear form
+    setFormData({ name: '', phone: '', email: '', preferredBranch: '', qualification: '', passingYear: '' });
+  };
 
   return (
     <Layout>
@@ -54,24 +80,20 @@ const ApplyIELTS = () => {
               <Input placeholder="Full Name *" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} required />
               <Input placeholder="Phone / WhatsApp *" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} required />
               <Input type="email" placeholder="Email Address" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} />
-              <Select value={formData.courseType} onValueChange={(v) => setFormData({...formData, courseType: v})}>
-                <SelectTrigger className="bg-background"><SelectValue placeholder="IELTS Course Type *" /></SelectTrigger>
+              <Select value={formData.preferredBranch} onValueChange={(v) => setFormData({...formData, preferredBranch: v})}>
+                <SelectTrigger className="bg-background"><SelectValue placeholder="Location (Preferred Branch) *" /></SelectTrigger>
                 <SelectContent className="bg-white z-50">
-                  {["IELTS Academic", "IELTS General", "IELTS UKVI", "IELTS Life Skills"].map(q => <SelectItem key={q} value={q}>{q}</SelectItem>)}
+                  {BRANCHES.map(b => <SelectItem key={b.key} value={b.key}>{b.label}</SelectItem>)}
                 </SelectContent>
               </Select>
-              <Select value={formData.targetBand} onValueChange={(v) => setFormData({...formData, targetBand: v})}>
-                <SelectTrigger className="bg-background"><SelectValue placeholder="Target Band *" /></SelectTrigger>
+              <Select value={formData.qualification} onValueChange={(v) => setFormData({...formData, qualification: v})}>
+                <SelectTrigger className="bg-background"><SelectValue placeholder="Qualification" /></SelectTrigger>
                 <SelectContent className="bg-white z-50">
-                  {['6.0', '6.5', '7.0', '7.5', '8.0+'].map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
+                  {["Matriculation", "Intermediate", "Bachelor's", "Master's", "Other"].map(q => <SelectItem key={q} value={q}>{q}</SelectItem>)}
                 </SelectContent>
               </Select>
-              <Select value={formData.timing} onValueChange={(v) => setFormData({...formData, timing: v})}>
-                <SelectTrigger className="bg-background"><SelectValue placeholder="Preferred Timing" /></SelectTrigger>
-                <SelectContent className="bg-white z-50">
-                  {['Morning (9 AM - 1 PM)', 'Afternoon (2 PM - 6 PM)', 'Evening (6 PM - 9 PM)'].map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
-                </SelectContent>
-              </Select>
+              <Input placeholder="Passing Year" type="number" value={formData.passingYear} onChange={(e) => setFormData({...formData, passingYear: e.target.value})} />
+
               <Button type="submit" variant="hero" size="lg" className="w-full">Submit Application</Button>
             </form>
           </div>

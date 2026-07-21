@@ -131,7 +131,7 @@ const DestinationsSection = () => {
           </motion.span>
 
           <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-foreground mb-4 max-w-3xl leading-tight">
-            Choose Your <span className="text-gradient">Dream Destination</span>
+            Study Destinations <span className="text-gradient">We Cover</span>
           </h2>
 
           <p className="text-muted-foreground text-lg md:text-xl leading-relaxed max-w-2xl mb-8">

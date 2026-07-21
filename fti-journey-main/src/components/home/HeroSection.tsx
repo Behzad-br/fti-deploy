@@ -145,8 +145,8 @@ const HeroSection = () => {
               variants={itemVariants}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-foreground leading-[0.85] tracking-tighter"
             >
-              Your Opportunity <br />
-              <span className="text-gradient drop-shadow-md inline-block mt-2 text-glow">Starts Here</span>
+              Pakistan's Trusted Partner for <br />
+              <span className="text-gradient drop-shadow-md inline-block mt-2 text-glow">Study Abroad & Visa Guidance</span>
             </motion.h1>
           </div>
 

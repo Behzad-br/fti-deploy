@@ -10,7 +10,7 @@ const AntigravityBackground = () => {
       
       {/* Deep Space Background Gradient & Noise */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#1a1a2e_0%,_#030303_100%)] z-0" />
-      <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay z-0" />
+      <div className="absolute inset-0 opacity-[0.03] bg-[url('/noise.svg')] mix-blend-overlay z-0" />
 
       {/* Floating Energy Particles */}
       <div className="absolute inset-0 z-10 pointer-events-none">

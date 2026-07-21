@@ -5,6 +5,7 @@ import {
   Trophy, Zap, Sparkles, ChevronRight, Globe, Phone, MessageCircle
 } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
+import SEO from '@/components/shared/SEO';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -48,6 +49,12 @@ const IELTS = () => {
 
   return (
     <Layout>
+      <SEO 
+        title="Best IELTS Preparation Classes in Pakistan | FTI Consultant" 
+        description="Achieve your dream band with FTI Consultant's IELTS preparation. Join our expert-led classes, access AI-powered mock tests, and secure your admission abroad."
+        keywords="IELTS preparation pakistan, best IELTS classes, IELTS mock tests online, study abroad English test, fti consultant ielts, IELTS training center"
+        url="https://fticonsultants.com/ielts"
+      />
       <div className="page-transition min-h-screen bg-orange-50/10 font-sans relative overflow-x-hidden">
         <ParticlesBackground />
         
@@ -127,7 +134,7 @@ const IELTS = () => {
               {/* Decorative Elements */}
               <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/20 rounded-full blur-[100px] mix-blend-screen pointer-events-none group-hover:scale-110 transition-transform duration-1000 hidden md:block" />
               <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-orange-600/20 rounded-full blur-[80px] mix-blend-screen pointer-events-none group-hover:scale-110 transition-transform duration-1000 hidden md:block" />
-              <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.05] mix-blend-overlay pointer-events-none hidden md:block" />
+              <div className="absolute inset-0 bg-[url('/noise.svg')] opacity-[0.05] mix-blend-overlay pointer-events-none hidden md:block" />
 
               <div className="flex justify-center items-center relative z-10 py-8">
                   <motion.div

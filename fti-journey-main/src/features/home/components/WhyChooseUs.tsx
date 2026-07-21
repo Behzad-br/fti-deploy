@@ -292,7 +292,7 @@ const WhyChooseUs = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-orange-500 via-orange-400 to-amber-500" />
 
           {/* Premium noise texture overlay */}
-          <div className="absolute inset-0 opacity-10 mix-blend-overlay" style={{ backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')" }} />
+          <div className="absolute inset-0 opacity-10 mix-blend-overlay" style={{ backgroundImage: "url('/noise.svg')" }} />
 
           {/* Animated subtle shapes inside the stats banner */}
           <motion.div

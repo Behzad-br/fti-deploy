@@ -127,23 +127,7 @@ const ManageHome = () => {
         <Button onClick={handleSave} className="px-8">Save Changes</Button>
       </div>
 
-      {/* Hero Text */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Hero Section Text</CardTitle>
-          <CardDescription>The main headline and subtext on the homepage.</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-1 text-slate-700">Main Title</label>
-            <Input value={heroTitle} onChange={(e) => setHeroTitle(e.target.value)} />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1 text-slate-700">Sub Description</label>
-            <Textarea value={heroDescription} onChange={(e) => setHeroDescription(e.target.value)} rows={3} />
-          </div>
-        </CardContent>
-      </Card>
+
 
 
 

@@ -1,7 +1,9 @@
+import { API_BASE_URL } from '../../config/api';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
+import SEO from '@/components/shared/SEO';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -11,14 +13,39 @@ const Apply = () => {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', qualification: '', gpa: '', country: '', ielts: '', intake: '' });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.phone || !formData.country) {
       toast({ title: 'Please fill required fields', variant: 'destructive' });
       return;
     }
-    setSubmitted(true);
-    toast({ title: 'Application submitted!', description: 'Our counsellor will contact you within 24 hours.' });
+    
+    setIsSubmitting(true);
+    try {
+      const res = await fetch(`${API_BASE_URL}/enquiries`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          ...formData, 
+          targetCountry: formData.country,
+          source: 'Apply Page' 
+        })
+      });
+      
+      if (res.ok) {
+        setSubmitted(true);
+        toast({ title: 'Application submitted!', description: 'Our counsellor will contact you within 24 hours.' });
+      } else {
+        const data = await res.json();
+        toast({ title: 'Error', description: data.message || 'Something went wrong.', variant: 'destructive' });
+      }
+    } catch {
+      toast({ title: 'Network Error', description: 'Please check your connection.', variant: 'destructive' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -40,6 +67,12 @@ const Apply = () => {
 
   return (
     <Layout>
+      <SEO 
+        title="Apply Now | FTI Consultants" 
+        description="Start your study abroad journey today. Apply online with FTI Consultants for free counselling and university admission assistance."
+        keywords="apply study abroad, university admission application, free counselling, FTI consultants apply"
+        url="https://fticonsultants.com/apply"
+      />
       <div className="page-transition">
         <section className="gradient-primary py-20 md:py-32">
           <div className="container mx-auto px-4 text-center text-white">
@@ -51,9 +84,9 @@ const Apply = () => {
         <section className="py-20 bg-white">
           <div className="container mx-auto px-4 max-w-2xl">
             <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-card p-8 space-y-5">
-              <Input placeholder="Full Name *" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} required />
-              <Input placeholder="Phone / WhatsApp *" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} required />
-              <Input type="email" placeholder="Email Address" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} />
+              <Input name="name" placeholder="Full Name *" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} required />
+              <Input name="phone" placeholder="Phone / WhatsApp *" value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} required />
+              <Input name="email" type="email" placeholder="Email Address" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} />
               <Select value={formData.qualification} onValueChange={(v) => setFormData({...formData, qualification: v})}>
                 <SelectTrigger className="bg-background"><SelectValue placeholder="Qualification" /></SelectTrigger>
                 <SelectContent className="bg-white z-50">
@@ -79,7 +112,9 @@ const Apply = () => {
                   {['Sep 2025', 'Jan 2026', 'Sep 2026', 'Not sure'].map(i => <SelectItem key={i} value={i}>{i}</SelectItem>)}
                 </SelectContent>
               </Select>
-              <Button type="submit" variant="hero" size="lg" className="w-full">Submit Application</Button>
+              <Button type="submit" variant="hero" size="lg" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? 'Submitting...' : 'Submit Application'}
+              </Button>
             </form>
           </div>
         </section>

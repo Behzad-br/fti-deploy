@@ -1,36 +1,83 @@
+import { API_BASE_URL } from '../../config/api';
 import { useState, useEffect } from 'react';
 import { MessageCircle, X, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const OFFICES = [
+const DEFAULT_OFFICES = [
   {
+    id: 'branch_lahore',
     name: 'Lahore Office',
     location: 'Lahore Office',
     number: '923000450025',
     message: 'Hi FTI Lahore, I want free counselling for study abroad.'
   },
   {
+    id: 'branch_faisalabad',
     name: 'Faisalabad Office',
     location: 'Faisalabad Office',
     number: '923007442732',
     message: 'Hi FTI Faisalabad, I want free counselling for study abroad.'
   },
   {
+    id: 'branch_rawalpindi',
     name: 'Rawalpindi Office',
     location: 'Rawalpindi Office',
     number: '923317442732',
     message: 'Hi FTI Rawalpindi, I want free counselling for study abroad.'
   },
   {
-    name: 'Gujranwala Office',
-    location: 'Gujranwala Office',
+    id: 'branch_gujranwala',
+    name: 'Gujranwala Office (Head Office)',
+    location: 'Gujranwala',
     number: '923099111400',
     message: 'Hi FTI Gujranwala, I want free counselling for study abroad.'
+  },
+  {
+    id: 'branch_london',
+    name: 'London Office (UK)',
+    location: 'London',
+    number: '447429950775',
+    message: 'Hi FTI London, I want free counselling for study abroad.'
+  },
+  {
+    id: 'branch_alipurchatta',
+    name: 'Ali Pur Chatta Office',
+    location: 'Ali Pur Chatta',
+    number: '923099111400',
+    message: 'Hi FTI Ali Pur Chatta, I want free counselling for study abroad.'
+  },
+  {
+    id: 'branch_bahawalpur',
+    name: 'Bahawalpur Office',
+    location: 'Bahawalpur',
+    number: '923006809989',
+    message: 'Hi FTI Bahawalpur, I want free counselling for study abroad.'
+  },
+  {
+    id: 'branch_wazirabad',
+    name: 'Wazirabad Office',
+    location: 'Wazirabad',
+    number: '923456604949',
+    message: 'Hi FTI Wazirabad, I want free counselling for study abroad.'
   }
 ];
 
 const WhatsAppButton = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [offices, setOffices] = useState(DEFAULT_OFFICES);
+
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/settings/whatsapp`)
+      .then(res => res.json())
+      .then(data => {
+        const updatedOffices = DEFAULT_OFFICES.map(office => ({
+          ...office,
+          number: data[office.id] !== undefined ? data[office.id].replace(/[^0-9]/g, '') : office.number
+        })).filter(office => office.number && office.number.trim() !== '');
+        setOffices(updatedOffices);
+      })
+      .catch(err => console.error("Failed to load whatsapp settings:", err));
+  }, []);
 
   useEffect(() => {
     const handleOpenSelector = () => setIsOpen(true);
@@ -75,7 +122,7 @@ const WhatsAppButton = () => {
 
             {/* Office List */}
             <div className="p-4 bg-slate-50 space-y-3 max-h-[400px] overflow-y-auto custom-scrollbar">
-              {OFFICES.map((office, index) => (
+              {offices.map((office, index) => (
                 <motion.button
                   key={office.name}
                   initial={{ opacity: 0, x: -20 }}

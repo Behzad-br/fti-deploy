@@ -119,33 +119,11 @@ const ManageEvents = () => {
         </div>
       </div>
 
-      <Tabs defaultValue="hero" className="w-full">
+      <Tabs defaultValue="events" className="w-full">
         <TabsList className="mb-6 bg-white border border-slate-200 p-1 rounded-xl shadow-sm h-14">
-          <TabsTrigger value="hero" className="rounded-lg h-10 px-6 data-[state=active]:bg-primary data-[state=active]:text-white font-medium transition-all">Hero Section</TabsTrigger>
           <TabsTrigger value="events" className="rounded-lg h-10 px-6 data-[state=active]:bg-primary data-[state=active]:text-white font-medium transition-all">Events List</TabsTrigger>
           <TabsTrigger value="gallery" className="rounded-lg h-10 px-6 data-[state=active]:bg-primary data-[state=active]:text-white font-medium transition-all">Past Events Gallery</TabsTrigger>
         </TabsList>
-
-        {/* HERO TAB */}
-        <TabsContent value="hero">
-          <Card>
-            <CardHeader>
-              <CardTitle>Hero Section</CardTitle>
-              <CardDescription>Edit the main heading and description of the Events page.</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-1 text-slate-700">Hero Title</label>
-                <Input value={heroTitle} onChange={(e) => setHeroTitle(e.target.value)} />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1 text-slate-700">Hero Description</label>
-                <Textarea value={heroDescription} onChange={(e) => setHeroDescription(e.target.value)} rows={4} />
-              </div>
-              <Button onClick={handleSaveHero} className="w-full md:w-auto">Save Hero Changes</Button>
-            </CardContent>
-          </Card>
-        </TabsContent>
 
         {/* EVENTS TAB */}
         <TabsContent value="events" className="space-y-6">

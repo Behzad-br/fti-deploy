@@ -1,18 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const { loginUser, getMe } = require('../controllers/auth.controller');
-const { protect } = require('../middleware/authMiddleware');
+const { loginUser, getMe, updatePassword, createEmployee, getEmployees, deleteEmployee } = require('../controllers/auth.controller');
+const { protect, admin } = require('../middleware/authMiddleware');
 
 // ─────────────────────────────────────────────
-//  Auth Routes — thin, delegates to controller
+//  Auth Routes
 // ─────────────────────────────────────────────
 
-// @route   POST /api/auth/login
-// @access  Public
 router.post('/login', loginUser);
-
-// @route   GET /api/auth/me
-// @access  Private
 router.get('/me', protect, getMe);
+router.put('/password', protect, updatePassword);
+
+router.post('/employees', protect, admin, createEmployee);
+router.get('/employees', protect, admin, getEmployees);
+router.delete('/employees/:id', protect, admin, deleteEmployee);
 
 module.exports = router;

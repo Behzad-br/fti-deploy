@@ -1,6 +1,7 @@
 import { motion, useScroll } from 'framer-motion';
 import { Users, GraduationCap, Award, Plane, BookOpen, Clock, HeartHandshake, Briefcase, CheckCircle2, Building2, ArrowRight } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
+import SEO from '@/components/shared/SEO';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import useScrollReveal from '@/hooks/useScrollReveal';
@@ -93,6 +94,12 @@ const About = () => {
 
   return (
     <Layout>
+      <SEO 
+        title="About FTI Consultant | Top Education Consultants in Pakistan" 
+        description="Discover FTI Consultant, Pakistan's leading overseas education experts. With 20+ years of experience, we guide students to top global universities with 98% visa success."
+        keywords="about fti consultant, top education consultants in pakistan, study abroad experts, fti consultants team, overseas education agency, zahoor elahi fti"
+        url="https://fticonsultants.com/about"
+      />
       <div className="page-transition">
         {/* Profile Hero Section */}
         {/* Profile Hero Section - High Fidelity 'Ayar' Powered Design */}

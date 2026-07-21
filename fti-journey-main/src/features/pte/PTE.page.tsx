@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Check, Monitor, Cpu, User, Cloud, ArrowRight, Star, Bot, Network, Sparkles } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
+import SEO from '@/components/shared/SEO';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import useScrollReveal from '@/hooks/useScrollReveal';
@@ -37,6 +38,12 @@ const PTE = () => {
 
   return (
     <Layout>
+      <SEO 
+        title="Top PTE Preparation Center in Pakistan | FTI Consultant" 
+        description="Ace your PTE exam with FTI Consultant. We offer technology-based classrooms, Pearson PTE registration, computer-based mock tests, and expert language trainers."
+        keywords="PTE preparation center, PTE classes pakistan, Pearson PTE registration, computer based english test, fti consultant pte, PTE mock tests"
+        url="https://fticonsultants.com/pte"
+      />
       <div className="page-transition">
         {/* Hero */}
         <section className="bg-gradient-to-r from-orange-500 to-amber-500 py-20 md:py-32 relative overflow-hidden">
@@ -96,7 +103,7 @@ const PTE = () => {
                   className="border-2 border-white/30 text-white hover:bg-white hover:text-orange-500 bg-transparent backdrop-blur-sm w-full sm:w-auto"
                   asChild
                 >
-                  <a href="https://fti.20task.com/auth/login" target="_blank" rel="noopener noreferrer">
+                  <a href="https://fti.portal.alfapte.com/v1/wc/login" target="_blank" rel="noopener noreferrer">
                     Access Your Portal
                   </a>
                 </Button>
@@ -208,7 +215,7 @@ const PTE = () => {
                           className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-400 hover:to-amber-400 text-white font-bold text-lg shadow-[0_0_20px_rgba(255,165,0,0.4)] border border-orange-400 h-16 px-8 group"
                           asChild
                         >
-                          <Link to="/free-consultation" className="flex items-center justify-center">
+                          <Link to="/apply-pte" className="flex items-center justify-center">
                             Book Now
                             <ArrowRight className="h-5 w-5 ml-3 group-hover:translate-x-1 transition-transform" />
                           </Link>

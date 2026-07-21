@@ -1,0 +1,10 @@
+[
+  {
+    "id": "mock_admin_id",
+    "name": "System Admin",
+    "email": "admin@fti.edu.pk",
+    "password": "$2b$10$eETiUOFVPSP3V8DsPbOLNuz3ioWsEXFqMjeo063gmfTLnmfJtJ42m",
+    "role": "admin",
+    "createdAt": "2026-07-21T00:00:00.000Z"
+  }
+]

@@ -51,28 +51,7 @@ const ManagePTE = () => {
         <Button onClick={handleSave}>Save Changes</Button>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Hero Section</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">Hero Title</label>
-            <Input 
-              value={heroTitle} 
-              onChange={(e) => setHeroTitle(e.target.value)} 
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Hero Description</label>
-            <Textarea 
-              value={heroDescription} 
-              onChange={(e) => setHeroDescription(e.target.value)} 
-              rows={4}
-            />
-          </div>
-        </CardContent>
-      </Card>
+
 
       <Card>
         <CardHeader>

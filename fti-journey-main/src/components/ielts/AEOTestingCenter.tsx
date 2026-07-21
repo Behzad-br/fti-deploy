@@ -34,7 +34,7 @@ const AEOTestingCenter = () => {
                         },
                         {
                             title: "Authentic Equipment",
-                            desc: "Train with the exact same high-quality audio equipment and testing materials used by AEO examiners.",
+                            desc: "Train with the exact same high-quality audio equipment and official Cambridge testing materials used by AEO examiners.",
                             icon: ShieldCheck,
                             color: "from-amber-400 to-yellow-500",
                             num: "02"
@@ -117,7 +117,7 @@ const AEOTestingCenter = () => {
                         </div>
                         <div>
                             <div className="text-3xl md:text-4xl font-black text-white drop-shadow-sm leading-none mb-1">OFFICIAL</div>
-                            <div className="text-xs sm:text-sm font-bold text-orange-100 tracking-wider uppercase">Testing Center</div>
+                            <div className="text-xs sm:text-sm font-bold text-orange-100 tracking-wider uppercase">IELTS Testing Center</div>
                         </div>
                     </div>
 

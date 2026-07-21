@@ -8,6 +8,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
+import { HelmetProvider } from 'react-helmet-async';
 
 // ── Auth layer ─────────────────────────────────────────────────────────
 import { AuthProvider, ProtectedRoute } from '@/auth';
@@ -44,6 +45,7 @@ import AustraliaDetail    from '@/features/destinations/AustraliaDetail.page';
 import Contact            from '@/features/contact/Contact.page';
 import Apply              from '@/features/apply/Apply.page';
 import ApplyIELTS         from '@/features/apply/ApplyIELTS.page';
+import ApplyPTE           from '@/features/apply/ApplyPTE.page';
 import FreeConsultation   from '@/features/apply/FreeConsultation.page';
 import Events             from '@/features/events/Events.page';
 import Success            from '@/features/apply/Success.page';
@@ -51,6 +53,7 @@ import NotFound           from '@/features/NotFound.page';
 
 // ── Admin feature ──────────────────────────────────────────────────────
 import AdminLogin         from '@/features/admin/AdminLogin.page';
+import EmployeeLogin      from '@/features/admin/EmployeeLogin.page';
 import StudentLogin       from '@/features/admin/StudentLogin.page';
 import AdminLayout        from '@/features/admin/components/AdminLayout';
 import AdminDashboard     from '@/features/admin/AdminDashboard.page';
@@ -66,6 +69,10 @@ import ManageDestinations from '@/features/admin/pages/ManageDestinations';
 import ManageServices     from '@/features/admin/pages/ManageServices';
 import ManageEvents       from '@/features/admin/pages/ManageEvents';
 import ManageContact      from '@/features/admin/pages/ManageContact';
+import ManageEnquiries    from '@/features/admin/pages/ManageEnquiries';
+import ManageTestQueries from '@/features/admin/pages/ManageTestQueries';
+import ManageContactSubmissions from '@/features/admin/pages/ManageContactSubmissions';
+import AdminSettings from '@/features/admin/pages/AdminSettings.page';
 
 const queryClient = new QueryClient();
 
@@ -101,13 +108,15 @@ const AnimatedRoutes = () => {
         <Route path="/contact"           element={<PageTransition><Contact /></PageTransition>} />
         <Route path="/apply"             element={<PageTransition><Apply /></PageTransition>} />
         <Route path="/apply-ielts"       element={<PageTransition><ApplyIELTS /></PageTransition>} />
+        <Route path="/apply-pte"         element={<PageTransition><ApplyPTE /></PageTransition>} />
         <Route path="/free-consultation" element={<PageTransition><FreeConsultation /></PageTransition>} />
         <Route path="/events"            element={<PageTransition><Events /></PageTransition>} />
         <Route path="/success"           element={<PageTransition><Success /></PageTransition>} />
 
         {/* ── Auth Routes ── */}
-        <Route path="/admin/login"   element={<PageTransition><AdminLogin /></PageTransition>} />
-        <Route path="/student/login" element={<PageTransition><StudentLogin /></PageTransition>} />
+        <Route path="/admin/login"    element={<PageTransition><AdminLogin /></PageTransition>} />
+        <Route path="/employee/login" element={<PageTransition><EmployeeLogin /></PageTransition>} />
+        <Route path="/student/login"  element={<PageTransition><StudentLogin /></PageTransition>} />
 
         {/* ── Protected Admin Routes ── */}
         <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
@@ -124,10 +133,34 @@ const AnimatedRoutes = () => {
           <Route path="pages/services"      element={<ManageServices />} />
           <Route path="pages/events"        element={<ManageEvents />} />
           <Route path="pages/contact"       element={<ManageContact />} />
+          <Route path="enquiries"           element={<ManageEnquiries />} />
+          <Route path="contact-submissions" element={<ManageContactSubmissions />} />
+          <Route path="test-queries"        element={<ManageTestQueries />} />
           <Route path="media"               element={<AdminPlaceholder title="Gallery & Media Manager" />} />
-          <Route path="students"            element={<AdminPlaceholder title="Student Applications" />} />
           <Route path="destinations"        element={<AdminPlaceholder title="Destinations Manager" />} />
-          <Route path="settings"            element={<AdminPlaceholder title="Admin Settings" />} />
+          <Route path="settings"            element={<AdminSettings />} />
+        </Route>
+
+        {/* ── Protected Employee Routes ── */}
+        <Route path="/employee" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
+          <Route index                      element={<AdminDashboard />} />
+          <Route path="dashboard"           element={<AdminDashboard />} />
+          <Route path="team"                element={<AdminTeam />} />
+          <Route path="courses"             element={<AdminCourses />} />
+          <Route path="ads"                 element={<AdminAds />} />
+          <Route path="pages/home"          element={<ManageHome />} />
+          <Route path="pages/ielts"         element={<ManageIELTS />} />
+          <Route path="pages/pte"           element={<ManagePTE />} />
+          <Route path="pages/about"         element={<ManageAbout />} />
+          <Route path="pages/destinations"  element={<ManageDestinations />} />
+          <Route path="pages/services"      element={<ManageServices />} />
+          <Route path="pages/events"        element={<ManageEvents />} />
+          <Route path="pages/contact"       element={<ManageContact />} />
+          <Route path="enquiries"           element={<ManageEnquiries />} />
+          <Route path="contact-submissions" element={<ManageContactSubmissions />} />
+          <Route path="test-queries"        element={<ManageTestQueries />} />
+          <Route path="media"               element={<AdminPlaceholder title="Gallery & Media Manager" />} />
+          <Route path="destinations"        element={<AdminPlaceholder title="Destinations Manager" />} />
         </Route>
 
         {/* ── 404 ── */}
@@ -142,20 +175,22 @@ const AnimatedRoutes = () => {
 //  AuthProvider > CMSProvider > QueryClient > UI > Router
 // ─────────────────────────────────────────────
 const App = () => (
-  <AuthProvider>
-    <CMSProvider>
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <ScrollToTop />
-            <AnimatedRoutes />
-          </BrowserRouter>
-        </TooltipProvider>
-      </QueryClientProvider>
-    </CMSProvider>
-  </AuthProvider>
+  <HelmetProvider>
+    <AuthProvider>
+      <CMSProvider>
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <ScrollToTop />
+              <AnimatedRoutes />
+            </BrowserRouter>
+          </TooltipProvider>
+        </QueryClientProvider>
+      </CMSProvider>
+    </AuthProvider>
+  </HelmetProvider>
 );
 
 export default App;

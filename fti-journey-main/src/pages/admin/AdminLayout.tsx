@@ -33,9 +33,6 @@ const AdminLayout = () => {
     const menuItems = [
         { icon: LayoutDashboard, label: 'Dashboard', path: '/admin/dashboard' },
         { icon: FileText, label: 'Manage Home', path: '/admin/pages/home' },
-        { icon: FileText, label: 'Manage Profile', path: '/admin/pages/about' },
-        { icon: FileText, label: 'Manage Destinations', path: '/admin/pages/destinations' },
-        { icon: FileText, label: 'Manage Services', path: '/admin/pages/services' },
         { icon: FileText, label: 'Manage Events', path: '/admin/pages/events' },
         { icon: FileText, label: 'Manage IELTS', path: '/admin/pages/ielts' },
         { icon: FileText, label: 'Manage PTE', path: '/admin/pages/pte' },

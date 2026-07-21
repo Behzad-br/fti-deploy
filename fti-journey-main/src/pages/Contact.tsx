@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { API_BASE_URL } from '../config/api';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Send, MessageCircle, ChevronRight } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
@@ -7,11 +8,19 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from '@/hooks/use-toast';
-import { useCMS } from '@/context/CMSContext';
+import { useCMS } from '@/store/CMSContext';
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', country: '', message: '' });
+  const [whatsappSettings, setWhatsappSettings] = useState<Record<string, string>>({});
   const { cmsData } = useCMS();
+
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/settings/whatsapp`)
+      .then(res => res.json())
+      .then(data => setWhatsappSettings(data))
+      .catch(err => console.error("Failed to load whatsapp settings:", err));
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -101,7 +110,7 @@ const Contact = () => {
                   country: 'Pakistan',
                   flag: '🇵🇰',
                   address: 'Opposite Punjab Group of Colleges, Sialkot Bypass Road, Near Garden Town, Gujranwala',
-                  phones: ['+92 (0) 300 744 2732', '+92 (0) 3000 4500 25', '+92 (0) 3000 4500 60'],
+                  phones: whatsappSettings['branch_gujranwala'] ? [whatsappSettings['branch_gujranwala']] : ['+92 (0) 300 744 2732', '+92 (0) 3000 4500 25', '+92 (0) 3000 4500 60'],
                   email: 'info@fti4success.com',
                   mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3378.1475734363294!2d74.2089456!3d32.1813197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391f2a33fd372379%3A0xe539f379f67a6d89!2sFTI%20Consultants!5e0!3m2!1sen!2spk!4v1709477000000!5m2!1sen!2spk"
                 },
@@ -111,7 +120,7 @@ const Contact = () => {
                   country: 'United Kingdom',
                   flag: '🇬🇧',
                   address: 'Barking Enterprise Centre, IG11 8FG, London',
-                  phones: ['+44 74 2995 0775', '+44 20 2786 3030'],
+                  phones: whatsappSettings['branch_london'] ? [whatsappSettings['branch_london']] : ['+44 74 2995 0775', '+44 20 2786 3030'],
                   email: 'london@fti4success.com',
                   mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2481.594777!2d0.0768!3d51.5385!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a6666666666f%3A0x6666666666666666!2sBarking%20Enterprise%20Centre!5e0!3m2!1sen!2suk!4v1709477100000!5m2!1sen!2suk"
                 },
@@ -121,7 +130,7 @@ const Contact = () => {
                   country: 'Pakistan',
                   flag: '🇵🇰',
                   address: 'Opposite Faysal Bank, Gujranwala Road, Ali Pur Chatta',
-                  phones: ['+92 (0) 309 9111 400', '+92 (0) 55 6821 400'],
+                  phones: whatsappSettings['branch_alipurchatta'] ? [whatsappSettings['branch_alipurchatta']] : ['+92 (0) 309 9111 400', '+92 (0) 55 6821 400'],
                   email: 'alipur@fti4success.com',
                   mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13546.066468!2d73.8116718!3d32.2658122!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391f472f4ccbe03d%3A0x50f81ad2f0514ae2!2sFaysal%20Bank!5e0!3m2!1sen!2spk!4v1709476300000!5m2!1sen!2spk"
                 },
@@ -131,7 +140,7 @@ const Contact = () => {
                   country: 'Pakistan',
                   flag: '🇵🇰',
                   address: '29-A Model Town, Sarwar Shaheed Road, Bahawalpur',
-                  phones: ['+92 (0) 300 680 99 89', '+92 (0) 62 28 88 022'],
+                  phones: whatsappSettings['branch_bahawalpur'] ? [whatsappSettings['branch_bahawalpur']] : ['+92 (0) 300 680 99 89', '+92 (0) 62 28 88 022'],
                   email: 'bahawalpur@fti4success.com',
                   mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3476.353456!2d71.6700!3d29.4000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x393b906666666667%3A0x6666666666666668!2sModel%20Town%2C%20Bahawalpur!5e0!3m2!1sen!2spk!4v1709477200000!5m2!1sen!2spk"
                 },
@@ -141,7 +150,7 @@ const Contact = () => {
                   country: 'Pakistan',
                   flag: '🇵🇰',
                   address: 'Shuja Avenue, Opposite Nadra Office, GT Road, Wazirabad',
-                  phones: ['+92 (0) 345 660 4949', '+92 (0) 55 660 4949'],
+                  phones: whatsappSettings['branch_wazirabad'] ? [whatsappSettings['branch_wazirabad']] : ['+92 (0) 345 660 4949', '+92 (0) 55 660 4949'],
                   email: 'wazirabad@fti4success.com',
                   mapUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3368.147573!2d74.1200!3d32.4400!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391f166666666667%3A0x6666666666666668!2sGT%20Road%2C%20Wazirabad!5e0!3m2!1sen!2spk!4v1709477300000!5m2!1sen!2spk"
                 },

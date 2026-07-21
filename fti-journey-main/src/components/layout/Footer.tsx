@@ -10,7 +10,7 @@ const quickLinks = [
   { name: 'IELTS Preparation', path: '/ielts' },
   { name: 'PTE Preparation', path: '/pte' },
   { name: 'Success Stories', path: '/success' },
-  { name: 'Student Portal', path: 'https://fti.20task.com/auth/login' },
+  { name: 'Student Portal', path: 'https://fti.portal.alfapte.com/v1/wc/login' },
 ];
 
 const destinations = [
@@ -30,28 +30,27 @@ const Footer = () => {
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] -z-10 translate-x-1/2 translate-y-1/2" />
 
       <div className="container mx-auto px-4 pb-10">
-        <div className="flex justify-center">
-          {/* Company Info */}
-          <div className="flex flex-col items-center text-center max-w-2xl">
-            <div className="flex flex-col mb-6 items-center">
-              <Link to="/" className="inline-block mb-8 group">
-                <div className="bg-white p-3 shadow-2xl transition-all duration-500 group-hover:scale-105 group-hover:shadow-primary/20 inline-block border border-white/10 rounded-none">
-                  <img
-                    src="/fti_logo_transparent.png"
-                    alt="FTI Consultants"
-                    className="h-16 w-auto object-contain"
-                  />
-                </div>
-              </Link>
-            </div>
+        <div className="flex flex-col md:flex-row justify-between items-center w-full max-w-5xl mx-auto gap-8">
+          {/* Logo on Left */}
+          <div className="flex-shrink-0">
+            <Link to="/" className="inline-block group mb-0">
+              <div className="bg-white p-3 shadow-2xl transition-all duration-500 group-hover:scale-105 group-hover:shadow-primary/20 inline-block border border-white/10 rounded-none">
+                <img
+                  src="/fti_logo_transparent.png"
+                  alt="FTI Consultants"
+                  className="h-16 w-auto object-contain"
+                />
+              </div>
+            </Link>
+          </div>
 
-            <div className="flex gap-4">
-              {[Facebook, Instagram, Linkedin, Youtube, Twitter].map((Icon, i) => (
-                <a key={i} href="#" className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:border-primary hover:-translate-y-1 transition-all duration-300 shadow-md text-white/80">
-                  <Icon className="h-5 w-5" />
-                </a>
-              ))}
-            </div>
+          {/* Social Icons on Right */}
+          <div className="flex gap-4">
+            {[Facebook, Instagram, Linkedin, Youtube, Twitter].map((Icon, i) => (
+              <a key={i} href="#" className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:border-primary hover:-translate-y-1 transition-all duration-300 shadow-md text-white/80">
+                <Icon className="h-5 w-5" />
+              </a>
+            ))}
           </div>
         </div>
       </div>

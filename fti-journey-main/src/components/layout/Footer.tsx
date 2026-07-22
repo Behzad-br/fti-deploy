@@ -46,7 +46,7 @@ const Footer = () => {
 
           {/* Social Icons on Right */}
           <div className="flex gap-4">
-            {[Facebook, Instagram, Linkedin, Youtube, Twitter].map((Icon, i) => (
+            {[Facebook, Instagram, Linkedin].map((Icon, i) => (
               <a key={i} href="#" className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:border-primary hover:-translate-y-1 transition-all duration-300 shadow-md text-white/80">
                 <Icon className="h-5 w-5" />
               </a>
